@@ -1,3 +1,3 @@
-MobileAppMgr::Engine.routes.draw do
-  resources :mobileapps
+Rails.application.routes.draw do
+  get "mobileapps" => "mobileappmgr/mobileapps#index", :as => :mobileappmgr
 end
