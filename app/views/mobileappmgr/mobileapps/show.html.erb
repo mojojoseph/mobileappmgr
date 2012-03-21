@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @mobileapp.name %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%= @mobileapp.version %>
+</p>
+
+<p>
+  <b>Platform:</b>
+  <%= @mobileapp.platform %>
+</p>
+
+<p>
+  <b>Install url:</b>
+  <%= @mobileapp.install_url %>
+</p>
+
+<p>
+  <b>Relnotes url:</b>
+  <%= @mobileapp.relnotes_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_mobileapp_path(@mobileapp) %> |
+<%= link_to 'Back', mobileapps_path %>

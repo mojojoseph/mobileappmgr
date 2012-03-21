@@ -1,0 +1,31 @@
+<h1>Listing mobileapps</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Version</th>
+    <th>Platform</th>
+    <th>Install url</th>
+    <th>Relnotes url</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @mobileapps.each do |mobileapp| %>
+  <tr>
+    <td><%= mobileapp.name %></td>
+    <td><%= mobileapp.version %></td>
+    <td><%= mobileapp.platform %></td>
+    <td><%= mobileapp.install_url %></td>
+    <td><%= mobileapp.relnotes_url %></td>
+    <td><%= link_to 'Show', mobileapp %></td>
+    <td><%= link_to 'Edit', edit_mobileapp_path(mobileapp) %></td>
+    <td><%= link_to 'Destroy', mobileapp, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Mobileapp', new_mobileapp_path %>
