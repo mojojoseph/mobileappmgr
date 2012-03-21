@@ -1,6 +1,6 @@
 require "active_support/dependencies"
 
-module MobileAppMgr
+module Mobileappmgr
   mattr_accessor :app_root
 
   def self.setup
