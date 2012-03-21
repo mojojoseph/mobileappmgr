@@ -1,4 +1,4 @@
-module MobileAppMgr
+module Mobileappmgr
   class MobileappsController < ApplicationController
     # GET /mobileapps
     # GET /mobileapps.json
