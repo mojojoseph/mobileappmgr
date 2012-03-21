@@ -2,14 +2,10 @@ module MobileAppMgr
 
   class Engine < Rails::Engine
 
-    initialize "mobileappmgr.load_app_instance_data" do |app|
+    initializer "mobileappmgr.load_app_instance_data", :after => :disable_dependency_loading do |app|
       MobileAppMgr.setup do |config|
         config.app_root = app.root
       end
-    end
-
-    initialize "mobileappmgr.load_static_assets" do |app|
-      app.middleware.use ::ActionDispatch::Static, "#{root}/public"
     end
 
   end
