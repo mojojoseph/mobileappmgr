@@ -12,6 +12,8 @@ contact jbell@numerex.com with your device UDID.</p>
   <tr>
     <th>Name</th>
     <th>Version</th>
+    <th>Uploaded</th>
+    <th>By</th>
     <th>&nbsp;</th>
   </tr>
 
@@ -19,6 +21,8 @@ contact jbell@numerex.com with your device UDID.</p>
   <tr>
     <td><%= mobileapp['name'] %></td>
     <td><%= mobileapp['version'] %></td>
+    <td><%= mobileapp['uploaded']%></td>
+    <td><%= mobileapp['creator']%></td>
     <td><a href="<%= mobileapp['install'] %>">Install</a></td>
   </tr>
 <% end %>
