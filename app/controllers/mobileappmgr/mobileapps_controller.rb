@@ -1,10 +1,26 @@
+require 'yaml'
+
 module Mobileappmgr
   class MobileappsController < ApplicationController
     # GET /mobileapps
     # GET /mobileapps.json
     def index
-      @mobileapps = Mobileapp.all
-  
+
+      @sysurl     = request.host_with_port
+
+      @mobileapps = []
+      
+      files = Dir["public/mobileapps/*.yml"]
+
+      files.each do |file|
+        mobileapp = YAML.load_file(file)
+
+        name      = mobileapp['name']
+        version   = mobileapp['version']
+        mobileapp['install'] = "itms-services://?action=download-manifest&url=http://#{@sysurl}/mobileapp/#{name}_#{version}"
+        @mobileapps << mobileapp
+      end
+
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @mobileapps }
@@ -14,12 +30,56 @@ module Mobileappmgr
     # GET /mobileapps/1
     # GET /mobileapps/1.json
     def show
-      @mobileapp = Mobileapp.find(params[:id])
-  
-      respond_to do |format|
-        format.html # show.html.erb
-        format.json { render json: @mobileapp }
-      end
+
+      name = params[:id]
+      yml_fname = "public/mobileapps/#{name}.yml"
+      mobileapp = YAML.load_file(yml_fname)
+
+      apptarget = mobileapp['apptarget']
+      bundleid  = mobileapp['bundleid']      
+      version   = mobileapp['version']
+
+      sysurl = request.host_with_port
+      ipaurl = "http://#{sysurl}/mobileapps/#{apptarget}.#{version}.ipa"
+
+      plist_content = <<-PLIST_DOCUMENT
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/
+PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>items</key>
+  <array>
+    <dict>
+      <key>assets</key>
+      <array>
+        <dict>
+          <key>kind</key>
+          <string>software-package</string>
+          <key>url</key>
+          <string>#{ipaurl}</string>
+        </dict>
+      </array>
+      <key>metadata</key>
+      <dict>
+        <key>bundle-identifier</key>
+        <string>#{bundleid}</string>
+        <key>bundle-version</key>
+        <string>#{version}</string>
+        <key>kind</key>
+        <string>software</string>
+        <key>subtitle</key>
+        <string></string>
+        <key>title</key>
+        <string>#{name}</string>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>
+PLIST_DOCUMENT
+
+      render :text => plist_content
     end
   
     # GET /mobileapps/new

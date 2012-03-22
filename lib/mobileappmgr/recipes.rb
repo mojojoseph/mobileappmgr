@@ -8,31 +8,41 @@ Capistrano::Configuration.instance.load do
       run ("ln -s #{shared_path}/mobileapps #{current_path}/public/mobileapps")
     end
 
-
     desc "Publish an IPA to a remote deployment server"
     task :publish do
       puts "Uploading IPA to #{current_release}"
-      puts "#{shared_path}"
 
-      cap_root   = Pathname.getwd
-      build_root = cap_root.join "mobileapps"
-
-      configuration_file = build_root.join 'mobileapps.yml'
+      configuration_file = Pathname.getwd.join 'mobileapps.yml'
       build_config       = YAML::load(File.open(configuration_file))
-      ios_build_dir      = build_root.join build_config['ios']['directory']
+      ios_build_dir      = Pathname.getwd.join build_config['ios']['directory']
 
-      # Dirty way, just iterate over all of the files and pick the ones
-      # we want, namely the .ipa and .plist
-      ios_build_dir.each_child do |f|
-        if f.extname == ".ipa" then
-          fname = f.basename
-          upload(f.to_s, "#{shared_path}/mobileapps/#{fname}")
-        end
-        
-        if f.extname == ".plist" then
-          fname = f.basename
-          upload(f.to_s, "#{shared_path}/mobileapps/#{fname}")
-        end
+      ipas = Dir["#{ios_build_dir}/*.ipa"]
+
+      ipas.each do |ipa|
+
+        fname = File.basename(ipa)
+        puts "IPA = #{fname}"
+        upload(ipa.to_s, "#{shared_path}/mobileapps/#{fname}")
+
+        apptarget = build_config['ios']['apptarget']
+        fname =~ /#{apptarget}\.(.*)\.ipa/ # Get the version
+        version = $1                       # Perl, save us
+        uploaded = Time.now.strftime("%Y-%d-%m %H:%M:%S %Z")
+        whoami   = `whoami`.chop
+
+        yml_content = <<-YML_DOCUMENT
+platform:  ios
+uploaded:  #{uploaded}
+creator:  #{whoami}
+apptarget:  #{build_config['ios']['apptarget']}
+bundleid:  #{build_config['ios']['bundleid']}
+name:  #{build_config['application']['name']}
+version:  #{version}
+YML_DOCUMENT
+
+        yml_fname = "#{build_config['application']['name']}_#{version}.yml"
+        File.open(yml_fname, 'w') {|f| f.write(yml_content)}
+        upload(yml_fname, "#{shared_path}/mobileapps/#{yml_fname}")
       end
     end
   end
