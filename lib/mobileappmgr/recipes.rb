@@ -27,7 +27,7 @@ Capistrano::Configuration.instance.load do
         apptarget = build_config['ios']['apptarget']
         fname =~ /#{apptarget}\.(.*)\.ipa/ # Get the version
         version = $1                       # Perl, save us
-        uploaded = Time.now.strftime("%Y-%d-%m %H:%M:%S")
+        uploaded = Time.now.strftime("%Y-%m-%d %H:%M:%S").to_yaml
         whoami   = `whoami`.chop
 
         yml_content = <<-YML_DOCUMENT
