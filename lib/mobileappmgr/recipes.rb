@@ -24,13 +24,18 @@ Capistrano::Configuration.instance.load do
         whoami   = `whoami`.chop
 
         type == "apk" ? platform = "android" : platform = "iOS"
+        if type == "ios"
+          bundleid = build_config['ios']['bundleid']
+        else
+          bundleid = ""
+        end
           
         yml_content = <<-YML_DOCUMENT
 platform:  #{platform}
 uploaded:  #{uploaded}
 creator:  #{whoami}
-apptarget:  #{build_config['android']['apptarget']}
-bundleid:  #{build_config['android']['bundleid']}
+apptarget:  #{build_config['application']['apptarget']}
+bundleid:  #{bundleid}
 name:  #{build_config['application']['name']}
 version:  #{version}
 YML_DOCUMENT
