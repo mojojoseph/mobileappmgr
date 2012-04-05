@@ -66,8 +66,8 @@ YML_DOCUMENT
       end
 
       task :all do
-        mobileappmgr.apk
-        mobileappmgr.ipa
+        workhorse "apk"
+        workhorse "ipa"
       end
     end
   end
