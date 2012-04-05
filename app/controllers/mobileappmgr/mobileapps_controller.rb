@@ -17,7 +17,12 @@ module Mobileappmgr
 
         name      = mobileapp['name']
         version   = mobileapp['version']
-        mobileapp['install'] = "itms-services://?action=download-manifest&url=http://#{@sysurl}/mobileapp/#{name}_#{version}"
+
+        if mobileapp['platform'] == "ipa" then
+          mobileapp['install'] = "itms-services://?action=download-manifest&url=http://#{@sysurl}/mobileapp/#{name}_#{version}"
+        else
+          mobileapp['install'] = "#{name}_#{version}"
+        end
         @mobileapps << mobileapp
       end
 

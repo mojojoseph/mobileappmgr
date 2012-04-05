@@ -1,15 +1,14 @@
-<h1>Mobile Test Builds</h1>
+<h1>Mobile Application Test Builds</h1>
 
-<p>Mobile application test builds are uploaded only to the staging servers
-  of a given FAST application.</p>
-
-<h2>iOS Mobile Applications</h2>
-<p><b>NOTE:</b>  iOS (iPhone/iPad) applications will only run on devices
+<p>Mobile application test builds are uploaded only to staging
+  servers.  <b>NOTE:</b>  iOS (iPhone/iPad) applications will only run on devices
 that have been added to Numerex Corporation's iOS distribution list.
 If you have a device that needs to be added to this list, please
 contact jbell@numerex.com with your device UDID.</p>
+
 <table>
   <tr>
+    <th>Platform</th>
     <th>Name</th>
     <th>Version</th>
     <th>Uploaded</th>
@@ -19,6 +18,7 @@ contact jbell@numerex.com with your device UDID.</p>
 
 <% @mobileapps.each do |mobileapp| %>
   <tr>
+    <td><%= mobileapp['platform']%></td>
     <td><%= mobileapp['name'] %></td>
     <td><%= mobileapp['version'] %></td>
     <td><%= mobileapp['uploaded']%></td>
