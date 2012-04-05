@@ -14,7 +14,7 @@ Capistrano::Configuration.instance.load do
 
         configuration_file = Pathname.getwd.join 'mobileapps.yml'
         build_config       = YAML::load(File.open(configuration_file))
-        ios_build_dir      = Pathname.getwd.join build_config['android']['directory']
+        apk_build_dir      = Pathname.getwd.join build_config['android']['directory']
 
         apks = Dir["#{apk_build_dir}/*.apk"]
         
