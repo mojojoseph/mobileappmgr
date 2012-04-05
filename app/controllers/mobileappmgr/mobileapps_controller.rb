@@ -42,16 +42,16 @@ module Mobileappmgr
       mobileapp = YAML.load_file(yml_fname)
 
       platform  = mobileapp['platform']
-
-      if platform == "iOS" then
       apptarget = mobileapp['apptarget']
-      bundleid  = mobileapp['bundleid']      
       version   = mobileapp['version']
 
-      sysurl = request.host_with_port
-      ipaurl = "http://#{sysurl}/mobileapps/#{apptarget}.#{version}.ipa"
+      if platform == "iOS" then
+        bundleid  = mobileapp['bundleid']      
 
-      plist_content = <<-PLIST_DOCUMENT
+        sysurl = request.host_with_port
+        ipaurl = "http://#{sysurl}/mobileapps/#{apptarget}.#{version}.ipa"
+        
+        plist_content = <<-PLIST_DOCUMENT
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/
 PropertyList-1.0.dtd">
@@ -88,10 +88,10 @@ PropertyList-1.0.dtd">
 </plist>
 PLIST_DOCUMENT
 
-      render :text => plist_content
+        render :text => plist_content
 
       else
-        render :text => "android"
+        redirect_to "/mobileapps/#{apptarget}.#{version}.apk"
       end
     end
   end
