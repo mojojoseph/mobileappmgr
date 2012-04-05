@@ -20,9 +20,9 @@ module Mobileappmgr
         platform  = mobileapp['platform']
 
         if platform == "iOS" then
-          mobileapp['install'] = "itms-services://?action=download-manifest&url=http://#{@sysurl}/mobileapp/#{name}_#{version}"
+          mobileapp['install'] = "itms-services://?action=download-manifest&url=http://#{@sysurl}/mobileapp/#{name}_ipa_#{version}"
         else
-          mobileapp['install'] = "#{name}_#{version}"
+          mobileapp['install'] = "#{name}_apk_#{version}"
         end
         @mobileapps << mobileapp
       end
@@ -41,6 +41,9 @@ module Mobileappmgr
       yml_fname = "public/mobileapps/#{name}.yml"
       mobileapp = YAML.load_file(yml_fname)
 
+      platform  = mobileapp['platform']
+
+      if platform == "iOS" then
       apptarget = mobileapp['apptarget']
       bundleid  = mobileapp['bundleid']      
       version   = mobileapp['version']
@@ -86,6 +89,10 @@ PropertyList-1.0.dtd">
 PLIST_DOCUMENT
 
       render :text => plist_content
+
+      else
+        render :text => "android"
+      end
     end
   
     # GET /mobileapps/new
