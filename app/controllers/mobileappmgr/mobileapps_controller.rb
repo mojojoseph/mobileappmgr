@@ -22,7 +22,7 @@ module Mobileappmgr
         if platform == "iOS" then
           mobileapp['install'] = "itms-services://?action=download-manifest&url=http://#{@sysurl}/mobileapp/#{name}_ipa_#{version}"
         else
-          mobileapp['install'] = "#{name}_apk_#{version}"
+          mobileapp['install'] = "http://#{@sysurl}/mobileapp/#{name}_apk_#{version}"
         end
         @mobileapps << mobileapp
       end
@@ -94,65 +94,6 @@ PLIST_DOCUMENT
         render :text => "android"
       end
     end
-  
-    # GET /mobileapps/new
-    # GET /mobileapps/new.json
-    def new
-      @mobileapp = Mobileapp.new
-  
-      respond_to do |format|
-        format.html # new.html.erb
-        format.json { render json: @mobileapp }
-      end
-    end
-  
-    # GET /mobileapps/1/edit
-    def edit
-      @mobileapp = Mobileapp.find(params[:id])
-    end
-  
-    # POST /mobileapps
-    # POST /mobileapps.json
-    def create
-      @mobileapp = Mobileapp.new(params[:mobileapp])
-  
-      respond_to do |format|
-        if @mobileapp.save
-          format.html { redirect_to @mobileapp, notice: 'Mobileapp was successfully created.' }
-          format.json { render json: @mobileapp, status: :created, location: @mobileapp }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @mobileapp.errors, status: :unprocessable_entity }
-        end
-      end
-    end
-  
-    # PUT /mobileapps/1
-    # PUT /mobileapps/1.json
-    def update
-      @mobileapp = Mobileapp.find(params[:id])
-  
-      respond_to do |format|
-        if @mobileapp.update_attributes(params[:mobileapp])
-          format.html { redirect_to @mobileapp, notice: 'Mobileapp was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @mobileapp.errors, status: :unprocessable_entity }
-        end
-      end
-    end
-  
-    # DELETE /mobileapps/1
-    # DELETE /mobileapps/1.json
-    def destroy
-      @mobileapp = Mobileapp.find(params[:id])
-      @mobileapp.destroy
-  
-      respond_to do |format|
-        format.html { redirect_to mobileapps_url }
-        format.json { head :no_content }
-      end
-    end
   end
 end
+  
