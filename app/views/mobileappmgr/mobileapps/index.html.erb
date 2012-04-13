@@ -1,32 +1,30 @@
-<h1>Mobile Application Test Builds</h1>
+<%= stylesheet_link_tag "mobileappmgr" %>
+<div class="padding">
+<h1 id="h1-spaced">Mobile Application Test Builds</h1>
 
-<p>Mobile application test builds are uploaded only to staging
+<p id="numerex-message">Mobile application test builds are uploaded only to staging
   servers.  <b>NOTE:</b>  iOS (iPhone/iPad) applications will only run on devices
 that have been added to Numerex Corporation's iOS distribution list.
 If you have a device that needs to be added to this list, please
 contact jbell@numerex.com with your device UDID.</p>
 
-<table>
+<table class="regular">
   <tr>
     <th>Platform</th>
-    <th>Name</th>
     <th>Version</th>
     <th>Uploaded</th>
-    <th>By</th>
     <th>&nbsp;</th>
   </tr>
 
 <% @mobileapps.each do |mobileapp| %>
   <tr>
     <td><%= mobileapp['platform']%></td>
-    <td><%= mobileapp['name'] %></td>
     <td><%= mobileapp['version'] %></td>
-    <td><%= mobileapp['uploaded']%></td>
-    <td><%= mobileapp['creator']%></td>
+    <td><%= formatted_uploaded_date(mobileapp) %></td>
     <td><a href="<%= mobileapp['install'] %>">Install</a></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
+</div>

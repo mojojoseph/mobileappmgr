@@ -2,6 +2,7 @@ require 'yaml'
 
 module Mobileappmgr
   class MobileappsController < ApplicationController
+    helper :formatting
     # GET /mobileapps
     # GET /mobileapps.json
     def index

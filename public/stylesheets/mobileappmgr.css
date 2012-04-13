@@ -1,0 +1,55 @@
+/* tables section *******************************************************/
+   table.regular {
+     border-collapse: collapse;
+     border-spacing: 0;
+     width: 70%;
+     margin: 20px 0;
+     border: #b4c9dd solid 2px;
+     color: #000;
+   }
+   table.regular tr {
+     height: 30px;
+     background-color: #FFF;
+     border-bottom: 1px solid #EEE;
+   }
+   table.regular tr:hover {
+     background-color: #E3EFF5;
+   }
+   table.regular th {
+     font-weight: bold;
+     text-align: left;
+     height: 33px;
+     background: url(/images/table_header_bg.png) repeat-x scroll bottom #D3E1ED;
+     vertical-align: middle;
+     padding: 0 7px;
+   }
+
+   table.regular th + th { border-left: 1px solid #7F9CB5; }
+   table.regular td + td { border-left: 1px solid #CCC; }
+
+   table.regular td {
+     text-align: left;
+     vertical-align: middle;
+     padding: 0 8px;
+   }
+   table.regular td.center-text,
+   table.regular th.center-text {
+     text-align: center;
+   }
+
+/* end ***********************************************************/
+
+
+/* message section ***********************************************************/
+    #numerex-message {
+        width: 70%;
+    }
+
+    .padding{
+        padding: 20px;
+    }
+
+    #h1-spaced{
+        line-height: 1.6em;
+    }
+/* end ***********************************************************/

@@ -5,6 +5,7 @@ Gem::Specification.new do |s|
   s.author = "Joseph Bell"
   s.summary = "Insert Mobileappmgr summary."
   s.description = "Insert Mobileappmgr description."
-  s.files = Dir["{recipes,app,lib,config}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.rdoc"]
+  s.files = Dir["{recipes,app,lib,config,public}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.rdoc"]
   s.version = "0.0.1"
 end
+
